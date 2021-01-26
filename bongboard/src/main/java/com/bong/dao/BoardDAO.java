@@ -1,4 +1,4 @@
-package com.bong.persistence;
+package com.bong.dao;
 
 import java.util.List;
 
@@ -15,5 +15,9 @@ public interface BoardDAO {
 	public void delete(int bno) throws Exception;
 	
 	public List<BoardVO> list() throws Exception;
+	
+	public int count() throws Exception;
+	
+	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception;
 
 }

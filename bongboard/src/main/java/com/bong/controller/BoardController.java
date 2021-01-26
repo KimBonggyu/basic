@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bong.domain.BoardVO;
+import com.bong.domain.Page;
 import com.bong.service.BoardService;
 
 @Controller
@@ -87,6 +88,7 @@ public class BoardController {
 		
 	}
 	
+	//글 삭제
 	@RequestMapping(value="/delete", method = RequestMethod.POST)
 	public String postDelete(@RequestParam("bno") int bno) throws Exception {
 		
@@ -96,6 +98,46 @@ public class BoardController {
 		
 		return "redirect:/board/list";
 		
+	}
+	
+	//게시물 목록 + 페이징 추가
+	@RequestMapping(value="/listPage", method = RequestMethod.GET)
+	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
+
+		logger.info("get listPage");
+		
+		Page page = new Page();
+		
+		page.setNum(num);
+		page.setCount(service.count());
+		
+		List<BoardVO> list = null;
+		list = service.listPage(page.getDisplayPost(), page.getPostNum());
+		
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);		
+		model.addAttribute("select", num);
+		
+	}
+	
+	//게시물 목록 + 페이징 추가
+	@RequestMapping(value="/listPageSearch", method = RequestMethod.GET)
+	public void getListPageSearch(Model model, @RequestParam("num") int num) throws Exception {
+
+		logger.info("get listPage");
+			
+		Page page = new Page();
+			
+		page.setNum(num);
+		page.setCount(service.count());
+			
+		List<BoardVO> list = null;
+		list = service.listPage(page.getDisplayPost(), page.getPostNum());
+			
+		model.addAttribute("list", list);
+		model.addAttribute("page", page);		
+		model.addAttribute("select", num);
+			
 	}
 
 }

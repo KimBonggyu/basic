@@ -6,8 +6,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Repository;
 
+import com.bong.dao.BoardDAO;
 import com.bong.domain.BoardVO;
-import com.bong.persistence.BoardDAO;
 
 @Repository
 public class BoardServiceImpl implements BoardService {
@@ -43,6 +43,18 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> list() throws Exception {
 
 		return dao.list();
+	}
+
+	@Override
+	public int count() throws Exception {
+
+		return dao.count();
+	}
+
+	@Override
+	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
+
+		return dao.listPage(displayPost, postNum);
 	}
 
 }
