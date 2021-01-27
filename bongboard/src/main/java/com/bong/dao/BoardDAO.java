@@ -3,6 +3,7 @@ package com.bong.dao;
 import java.util.List;
 
 import com.bong.domain.BoardVO;
+import com.bong.domain.Criteria;
 
 public interface BoardDAO {
 	
@@ -18,6 +19,8 @@ public interface BoardDAO {
 	
 	public int count() throws Exception;
 	
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception;
+	public List<BoardVO> listPage(int page) throws Exception;
+	
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 
 }

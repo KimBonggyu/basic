@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.bong.domain.BoardVO;
+import com.bong.domain.Criteria;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -55,14 +56,20 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
+	public List<BoardVO> listPage(int page) throws Exception {
 
-		HashMap<String, Integer> data = new HashMap<String, Integer>();
+		if(page <= 0) {
+			page = 1;
+		}
+		page = (page - 1) * 10;
 		
-		data.put("displayPost", displayPost);
-		data.put("postNum", postNum);
-		
-		return sql.selectList(namespace + ".listPage", data);
+		return sql.selectList(namespace + ".listPage", page);
+	}
+
+	@Override
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
+
+		return sql.selectList(namespace + ".listCriteria", cri);
 	}
 
 }

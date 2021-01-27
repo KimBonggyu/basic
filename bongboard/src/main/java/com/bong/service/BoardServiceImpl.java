@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.bong.dao.BoardDAO;
 import com.bong.domain.BoardVO;
+import com.bong.domain.Criteria;
 
 @Repository
 public class BoardServiceImpl implements BoardService {
@@ -52,9 +53,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception {
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 
-		return dao.listPage(displayPost, postNum);
+		return dao.listCriteria(cri);
 	}
 
 }

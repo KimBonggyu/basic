@@ -3,6 +3,7 @@ package com.bong.service;
 import java.util.List;
 
 import com.bong.domain.BoardVO;
+import com.bong.domain.Criteria;
 
 public interface BoardService {
 	
@@ -18,6 +19,6 @@ public interface BoardService {
 	
 	public int count() throws Exception;
 	
-	public List<BoardVO> listPage(int displayPost, int postNum) throws Exception;
+	public List<BoardVO> listCriteria(Criteria cri) throws Exception;
 
 }

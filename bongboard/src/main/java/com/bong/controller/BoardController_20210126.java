@@ -13,15 +13,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bong.domain.BoardVO;
-import com.bong.domain.Criteria;
-import com.bong.domain.PageMaker;
+import com.bong.domain.Page;
 import com.bong.service.BoardService;
 
 @Controller
 @RequestMapping("/board/*")
-public class BoardController {
+public class BoardController_20210126 {
 	
-	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(BoardController_20210126.class);
 	
 	@Inject
 	BoardService service;
@@ -101,50 +100,24 @@ public class BoardController {
 		
 	}
 	
-	@RequestMapping(value="/listCri", method = RequestMethod.GET)
-	public void listAll(Criteria cri, Model model) throws Exception {
-		
-		logger.info("get listCri");
-		
-		model.addAttribute("list", service.listCriteria(cri));
-	}
-	
-	@RequestMapping(value="listPage", method = RequestMethod.GET)
-	public void listPage(Criteria cri, Model model) throws Exception {
-		
-		logger.info("get listPage");
-		
-		model.addAttribute("list", service.listCriteria(cri));
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(131);
-		
-		model.addAttribute("pageMaker", pageMaker);
-	}
-	
-	
-	
 	//게시물 목록 + 페이징 추가
-	/*
-	@RequestMapping(value="/listPageSearch", method = RequestMethod.GET)
-	public void getListPageSearch(Model model, @RequestParam("num") int num) throws Exception {
+	@RequestMapping(value="/listPage", method = RequestMethod.GET)
+	public void getListPage(Model model, @RequestParam("num") int num) throws Exception {
 
 		logger.info("get listPage");
-			
+		
 		Page page = new Page();
-			
+		
 		page.setNum(num);
 		page.setCount(service.count());
-			
+		
 		List<BoardVO> list = null;
 		list = service.listPage(page.getDisplayPost(), page.getPostNum());
-			
+		
 		model.addAttribute("list", list);
 		model.addAttribute("page", page);		
 		model.addAttribute("select", num);
-			
+		
 	}
-	*/
-	
 
 }
