@@ -1,5 +1,10 @@
 package com.bong.domain;
 
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
+
+
+
 public class PageMaker {
 	
 	private int totalCount;	//전체 데이터의 수
@@ -91,6 +96,19 @@ public class PageMaker {
 	public String toString() {
 		return "PageMaker [totalCount=" + totalCount + ", startPage=" + startPage + ", endPage=" + endPage + ", prev="
 				+ prev + ", next=" + next + ", displayPageNum=" + displayPageNum + ", cri=" + cri + "]";
+	}
+	
+	public String makeQuery(int page) {
+		
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page", page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType", ((SearchCriteria)cri).getSearchType())
+				.queryParam("keyword", ((SearchCriteria)cri).getKeyword())
+				.build();
+		
+		return uriComponents.toUriString();
+		
 	}
 
 }

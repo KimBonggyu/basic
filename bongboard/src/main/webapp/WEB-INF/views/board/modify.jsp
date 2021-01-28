@@ -41,8 +41,12 @@ $(document).ready(function() {
 	<section id="container">
 	
 		<form role="form" method="post" autocomplete="off">
+		
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+		
 			<p>
-				<label for="bno">글 번호</label><input type="text" id="bno" name="bno" value="${modify.bno}" />
+				<label for="bno">글 번호</label><input type="text" id="bno" name="bno" value="${modify.bno}" readonly="readonly" />
 			</p>
 		
 			<p>

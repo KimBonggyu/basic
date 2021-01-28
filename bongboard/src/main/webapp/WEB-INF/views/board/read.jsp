@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -33,6 +32,12 @@ $(document).ready(function() {
 			formObj.submit();
 		}
 	});
+
+	$("#golist_btn").on("click", function() {
+		formObj.attr("method", "get");
+		formObj.attr("action", "/board/listPage");
+		formObj.submit();
+	});
 });
 </script>
 </head>
@@ -48,11 +53,15 @@ $(document).ready(function() {
 
 	<section id="container">
 	
-		<form role="form" method="post" autocomplete="off">
+		<form role="form" action="modify" method="post">
+			<input type="hidden" name="bno" value="${read.bno}">
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+		</form>
+	
 			<p>
 				<label for="bno">글 번호</label><input type="text" id="bno" name="bno" value="${read.bno}" readonly="readonly"/>
-			</p>
-		</form>	
+			</p>	
 			<p>
 				<label for="title">글 제목</label><input type="text" id="title" name="title" value="${read.title}" readonly="readonly"/>
 			</p>
@@ -66,6 +75,7 @@ $(document).ready(function() {
 			<p>
 				<button id="modify_btn">수정</button>
 				<button id="delete_btn">삭제</button>
+				<button id="golist_btn">목록으로</button>
 			</p>
 	
 	</section>

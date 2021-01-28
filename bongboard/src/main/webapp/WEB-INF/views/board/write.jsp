@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 
@@ -19,6 +20,10 @@
 	<section id="container">
 	
 		<form role="form" method="post" autocomplete="off">
+		
+			<input type="hidden" name="page" value="${cri.page}">
+			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			
 			<p>
 				<label for="title">글 제목</label><input type="text" id="title" name="title" />
 			</p>

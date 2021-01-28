@@ -50,12 +50,6 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public int count() throws Exception {
-
-		return sql.selectOne(namespace + ".count");
-	}
-
-	@Override
 	public List<BoardVO> listPage(int page) throws Exception {
 
 		if(page <= 0) {
@@ -70,6 +64,12 @@ public class BoardDAOImpl implements BoardDAO{
 	public List<BoardVO> listCriteria(Criteria cri) throws Exception {
 
 		return sql.selectList(namespace + ".listCriteria", cri);
+	}
+
+	@Override
+	public int countPaging(Criteria cri) throws Exception {
+
+		return sql.selectOne(namespace + ".countPaging", cri);
 	}
 
 }

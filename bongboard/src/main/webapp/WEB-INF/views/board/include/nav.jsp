@@ -5,12 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+$(document).ready(function() {
+	$("#write_btn").on("click", function(){
+		self.location = "/board/write";
+		});
+});
+</script>
+
 </head>
 <body>
-<ul>
-	<li><a href="/board/write">글 작성</a></li>
-	<li><a href="/board/list">글 목록</a></li>
-	<li>로그인</li>
-</ul>
+	<button id="write_btn">글 작성
+	<button id="login_btn">로그인</button>
 </body>
 </html>
