@@ -20,7 +20,10 @@ $(document).ready(function() {
 	$("#search_btn").on("click", function() {
 
 		self.location="listPage"
-			+ "${pageMaker.makeQuery(1)}";
+			+"${pageMaker.makeSearchQuery(1)}"
+			+"&searchType="
+			+$("select option:selected").val()
+			+"&keyword=" + $("#keywordInput").val();
 		});
 });
 

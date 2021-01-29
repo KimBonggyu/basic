@@ -2,31 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="include/includelink.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type="text/javascript">
-
-$(document).ready(function() {
-
-	var formObj = $("form[role='form']");
-
-	$("#cancel_btn").on("click", function(){
-
-		var check = confirm("돌아가시겠습니까?");
-
-		if(check){
-			formObj.attr("action", "/board/read?bno=" + $("#bno").val());
-			formObj.attr("method", "get")
-			formObj.submit();
-		}
-	});
-});
-</script>
 </head>
 <body>
 
@@ -44,6 +26,8 @@ $(document).ready(function() {
 		
 			<input type="hidden" name="page" value="${cri.page}">
 			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			<input type="hidden" name="searchType" value="${cri.searchType}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
 		
 			<p>
 				<label for="bno">글 번호</label><input type="text" id="bno" name="bno" value="${modify.bno}" readonly="readonly" />
@@ -60,14 +44,53 @@ $(document).ready(function() {
 				<label>작성일</label> <span><fmt:formatDate value="${modify.regDate}" pattern="yyyy-MM-dd"/></span>
 			</p>
 			<p>
-				<button type="submit">수정완료</button>
-				<button id="cancel_btn">삭제</button>
+				<button type="submit" id="modifysave_btn">수정완료</button>
+				<button type="submit" id="cancel_btn">취소</button>
 			</p>
 	
 		</form>
 			
 	</section>
 
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
+	var formObj = $("form[role='form']");
+
+	$("#cancel_btn").on("click", function(e){
+
+		
+		e.preventDefault();
+		
+/* 		var location="listPage?"
+			+"page=${cri.page}"
+			+"&perPageNum=${cri.perPageNum}"
+			+"&searchType=${cri.searchType}"
+			+"&keyword=${cri.keyword}"; */
+
+//		console.log(location);
+
+		formObj.attr("action","/board/listPage").attr("method","get").submit();
+			
+
+		<%--
+		var check = confirm("돌아가시겠습니까?");
+
+		if(check==true){
+			self.location = "/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}";
+		} else {
+			return;
+		}
+		--%>
+	});
+	
+	$("#modifysave_btn").on("click", function() {
+		formObj.attr("action","/board/modify").attr("method","post").submit();
+	});
+});
+</script>
 	<footer>
 		<%@ include file="include/footer.jsp" %>
 	</footer>

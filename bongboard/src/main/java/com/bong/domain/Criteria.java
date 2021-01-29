@@ -4,8 +4,8 @@ public class Criteria {
 	
 	private int page;
 	private int perPageNum;
-	/*private String searchType;
-	private String keyword;*/
+	private String searchType;
+	private String keyword;
 	
 	public Criteria() {
 		this.page = 1;
@@ -44,8 +44,13 @@ public class Criteria {
 		
 		return (this.page - 1) * perPageNum;
 	}
-/*
+
 	public String getSearchType() {
+		
+		if(searchType == null || searchType.trim().length() == 0) {
+			return null;
+		}
+		
 		return searchType;
 	}
 
@@ -54,17 +59,23 @@ public class Criteria {
 	}
 
 	public String getKeyword() {
+		
+		if(keyword == null || keyword.trim().length() == 0) {
+			return null;
+		}
+		
+		
 		return keyword;
 	}
 
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-*/
+
 	@Override
 	public String toString() {
-		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + "]";
+		return "Criteria [page=" + page + ", perPageNum=" + perPageNum + ", searchType=" + searchType + ", keyword="
+				+ keyword + "]";
 	}
-	
 
 }

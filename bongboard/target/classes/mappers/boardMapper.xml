@@ -56,13 +56,15 @@ order by bno desc
 </select>
 
 <select id="listCriteria" resultType="com.bong.domain.BoardVO">
-select
-	bno, title, content, writer, regDate, viewCnt
-from tbl_board
+<![CDATA[
+select * from tbl_board
 where bno > 0
+]]>
 <include refid="search"></include>
+<![CDATA[
 order by bno desc
 limit #{pageStart}, #{perPageNum}
+]]>
 </select>
 
 <select id="countPaging" resultType="int">

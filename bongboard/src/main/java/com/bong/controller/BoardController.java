@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bong.domain.BoardVO;
 import com.bong.domain.Criteria;
 import com.bong.domain.PageMaker;
-import com.bong.domain.SearchCriteria;
 import com.bong.service.BoardService;
 
 @Controller
@@ -48,13 +47,14 @@ public class BoardController {
 	
 	//글 목록
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public void list(Model model) throws Exception {
+	public String list(Model model) throws Exception {
 		
 		logger.info("get list");
 		
 		List<BoardVO> list = service.list();
 		
 		model.addAttribute("list", list);
+		return "/board/listPage";
 	}
 	
 	//글 조회
@@ -62,6 +62,7 @@ public class BoardController {
 	public void getRead(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		
 		logger.info("get read");
+		logger.info(cri.toString());
 		
 		BoardVO vo = service.read(bno);
 		
@@ -70,9 +71,10 @@ public class BoardController {
 	
 	//글 수정
 	@RequestMapping(value="/modify", method = RequestMethod.GET)
-	public void getModify(@RequestParam("bno") int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	public void getModify(int bno, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		
 		logger.info("get modify");
+		logger.info(cri.toString());
 		
 		BoardVO vo = service.read(bno);
 		
@@ -85,11 +87,14 @@ public class BoardController {
 	public String postModify(BoardVO vo, Criteria cri, RedirectAttributes rttr) throws Exception {
 		
 		logger.info("post modify");
+		logger.info(cri.toString());
 		
 		service.update(vo);
 		
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/listPage";
 		
@@ -100,11 +105,14 @@ public class BoardController {
 	public String postDelete(@RequestParam("bno") int bno, Criteria cri, RedirectAttributes rttr) throws Exception {
 		
 		logger.info("post delete");
+		logger.info(cri.toString());
 		
 		service.delete(bno);
 		
 		rttr.addAttribute("page", cri.getPage());
 		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
 		
 		return "redirect:/board/listPage";
 		
@@ -119,9 +127,10 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="listPage", method = RequestMethod.GET)
-	public void listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		
 		logger.info("get listPage");
+		logger.info(cri.toString());
 		
 		model.addAttribute("list", service.listCriteria(cri));
 		PageMaker pageMaker = new PageMaker();

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ include file="include/includelink.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,6 +24,8 @@
 		
 			<input type="hidden" name="page" value="${cri.page}">
 			<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+			<input type="hidden" name="searchType" value="${cri.searchType}">
+			<input type="hidden" name="keyword" value="${cri.keyword}">
 			
 			<p>
 				<label for="title">글 제목</label><input type="text" id="title" name="title" />
