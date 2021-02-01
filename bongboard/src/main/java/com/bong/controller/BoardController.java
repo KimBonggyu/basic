@@ -17,7 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.bong.domain.BoardVO;
 import com.bong.domain.Criteria;
 import com.bong.domain.PageMaker;
+import com.bong.domain.ReplyVO;
 import com.bong.service.BoardService;
+import com.bong.service.ReplyService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -27,6 +29,9 @@ public class BoardController {
 	
 	@Inject
 	BoardService service;
+	
+	@Inject
+	ReplyService replyService;
 	
 	//글 작성
 	@RequestMapping(value="/write", method = RequestMethod.GET)
@@ -46,7 +51,7 @@ public class BoardController {
 	}
 	
 	//글 목록
-	@RequestMapping(value="/list", method = RequestMethod.GET)
+	@RequestMapping(value="/list", method = RequestMethod.GET	)
 	public String list(Model model) throws Exception {
 		
 		logger.info("get list");
@@ -65,8 +70,12 @@ public class BoardController {
 		logger.info(cri.toString());
 		
 		BoardVO vo = service.read(bno);
-		
 		model.addAttribute("read", vo);
+		
+		List<ReplyVO> reply = null;
+		reply = replyService.list(bno);
+		model.addAttribute("reply", reply);
+		
 	}
 	
 	//글 수정
@@ -122,10 +131,11 @@ public class BoardController {
 	public void listAll(Criteria cri, Model model) throws Exception {
 		
 		logger.info("get listCri");
+		logger.info(cri.toString());
 		
 		model.addAttribute("list", service.listCriteria(cri));
 	}
-	
+	//최종 글 목록
 	@RequestMapping(value="listPage", method = RequestMethod.GET)
 	public void listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 		

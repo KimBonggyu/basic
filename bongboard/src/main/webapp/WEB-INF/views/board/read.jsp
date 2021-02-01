@@ -44,12 +44,13 @@
 				<label>작성일</label> <span><fmt:formatDate value="${read.regDate}" pattern="yyyy-MM-dd"/></span>
 			</p>
 			<p>
-				<button id="modify_btn">수정</button>
-				<button id="delete_btn">삭제</button>
-				<button id="golist_btn">목록으로</button>
+				<button type="button" id="modify_btn">수정</button>
+				<button type="button" id="delete_btn">삭제</button>
+				<button type="button" id="golist_btn">목록으로</button>
 			</p>
 	
 	</section>
+	
 	
 	
 <script type="text/javascript">
@@ -59,8 +60,6 @@ $(document).ready(function() {
 	var formObj = $("form[role='form']");
 
 	$("#modify_btn").on("click", function() {
-
-		
 
 		formObj.attr("action", "/board/modify");
 		formObj.attr("method", "get");
@@ -74,7 +73,6 @@ $(document).ready(function() {
 
 		if(check){
 			formObj.attr("action", "/board/delete");
-			formObj.attr("method", "post")
 			formObj.submit();
 		}
 	});

@@ -44,14 +44,13 @@
 				<label>작성일</label> <span><fmt:formatDate value="${modify.regDate}" pattern="yyyy-MM-dd"/></span>
 			</p>
 			<p>
-				<button type="submit" id="modifysave_btn">수정완료</button>
-				<button type="submit" id="cancel_btn">취소</button>
+				<button type="button" id="modifysave_btn">수정완료</button>
+				<button type="button" id="cancel_btn">취소</button>
 			</p>
 	
 		</form>
 			
 	</section>
-
 
 <script type="text/javascript">
 
@@ -61,33 +60,23 @@ $(document).ready(function() {
 
 	$("#cancel_btn").on("click", function(e){
 
+		var check = confirm("돌아가시겠습니까?");
+
+		if(check){
 		
-		e.preventDefault();
-		
-/* 		var location="listPage?"
+ 		self.location="listPage?"
 			+"page=${cri.page}"
 			+"&perPageNum=${cri.perPageNum}"
 			+"&searchType=${cri.searchType}"
-			+"&keyword=${cri.keyword}"; */
-
-//		console.log(location);
-
-		formObj.attr("action","/board/listPage").attr("method","get").submit();
+			+"&keyword=${cri.keyword}";
+		};
 			
-
-		<%--
-		var check = confirm("돌아가시겠습니까?");
-
-		if(check==true){
-			self.location = "/board/listPage?page=${cri.page}&perPageNum=${cri.perPageNum}&searchType=${cri.searchType}&keyword=${cri.keyword}";
-		} else {
-			return;
-		}
-		--%>
 	});
 	
 	$("#modifysave_btn").on("click", function() {
-		formObj.attr("action","/board/modify").attr("method","post").submit();
+		formObj.attr("action","/board/modify");
+		formObj.attr("method","post");
+		formObj.submit();
 	});
 });
 </script>
