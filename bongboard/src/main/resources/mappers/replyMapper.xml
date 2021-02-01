@@ -18,7 +18,6 @@ values (#{bno}, #{replyWriter}, #{replyContent}, #{replyRegDate})
 
 <update id="replyModify" parameterType="com.bong.domain.ReplyVO">
 update tbl_reply set
-	replyWriter = #{replyWriter},
 	replyContent = #{replyContent}
 where rno = #{rno}
 and bno = #{bno}

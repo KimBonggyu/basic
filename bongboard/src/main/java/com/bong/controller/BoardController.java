@@ -72,9 +72,8 @@ public class BoardController {
 		BoardVO vo = service.read(bno);
 		model.addAttribute("read", vo);
 		
-		List<ReplyVO> reply = null;
-		reply = replyService.list(bno);
-		model.addAttribute("reply", reply);
+		List<ReplyVO> replyList = replyService.list(bno);
+		model.addAttribute("replyList", replyList);
 		
 	}
 	
@@ -148,6 +147,24 @@ public class BoardController {
 		pageMaker.setTotalCount(service.listCountCriteria(cri));
 		
 		model.addAttribute("pageMaker", pageMaker);
+	}
+	
+	//댓글 작성
+	@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(ReplyVO vo, Criteria cri, RedirectAttributes rttr) throws Exception {
+		
+		logger.info("reply write post");
+		
+		replyService.write(vo);
+		
+		rttr.addAttribute("bno", vo.getBno());
+		rttr.addAttribute("page", cri.getPage());
+		rttr.addAttribute("perPageNum", cri.getPerPageNum());
+		rttr.addAttribute("searchType", cri.getSearchType());
+		rttr.addAttribute("keyword", cri.getKeyword());
+		
+		return "redirect:/board/read";
+		
 	}
 
 }

@@ -53,6 +53,44 @@
 	
 	
 	
+	<section class="replysection">
+	
+	<form role="form" method="post">
+	
+		<input type="hidden" name="bno" value="${read.bno}">
+		<input type="hidden" name="page" value="${cri.page}">
+		<input type="hidden" name="perPageNum" value="${cri.perPageNum}">
+		<input type="hidden" name="searchType" value="${cri.searchType}">
+		<input type="hidden" name="keyword" value="${cri.keyword}">
+		
+		<p>
+			<label for="writer">작성자</label><input type="text" id="replyWriter" name="replyWriter">
+		</p>
+		<p>
+			<label for="content">댓글 내용</label><textarea id="replyContent" name="replyContent"></textarea>
+		</p>
+		
+			<button type="button" id="replyWrite_btn">댓글작성</button>
+	
+	</form>
+	
+	
+	<ul>
+		<c:forEach items="${replyList}" var="replyList">
+		<li>
+			<div>
+				<p><fmt:formatDate value="${replyList.replyRegDate}" pattern="yyyy-MM-dd"/></p>
+				<p>${replyList.replyWriter}</p>
+				<p>${replyList.replyContent}</p>
+			</div>
+			<hr/>
+		</li>
+		</c:forEach>
+	</ul>
+	
+	</section>
+	
+	
 <script type="text/javascript">
 
 $(document).ready(function() {
@@ -83,6 +121,22 @@ $(document).ready(function() {
 		formObj.submit();
 	});
 });
+</script>
+
+<script>
+	$(document).ready(function(e) {
+			
+		
+		var formObj = $(".replysection form[role='form']");
+
+		$("#replyWrite_btn").on("click", function() {
+			
+			formObj.attr("action", "replyWrite");
+			formObj.submit();
+			
+		});
+		
+	});
 </script>
 
 	<footer>
